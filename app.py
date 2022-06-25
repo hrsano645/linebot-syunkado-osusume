@@ -47,11 +47,16 @@ class SyunkadoOkasi:
     name: str
     bot_sentence: str
     season: str
+    okasi_info: str = ""  # urlとしたい
 
 
 # お菓子一覧: https://www.shunkado.co.jp/sweets/
 syunkado_okasi_list = [
-    SyunkadoOkasi("うなぎパイ", "夜のお菓子と言ったら！", "通年"),
+    SyunkadoOkasi(
+        "うなぎパイ",
+        "夜のお菓子と言ったら！",
+        "通年",
+    ),
     SyunkadoOkasi("うなぎパイVPOS", "ブランデーが入ってさらに美味しい！", "通年"),
     SyunkadoOkasi("うなぎサブレ", "隠れた名品！", "通年"),
 ]

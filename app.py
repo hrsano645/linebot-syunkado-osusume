@@ -102,7 +102,9 @@ def message_text(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(
-                    text=f"{random_okasi.bot_sentence} \n『{random_okasi.name}』\n{random_okasi.season}で買えるよ！"
+                    text=f"""{random_okasi.bot_sentence} \n
+                    『{random_okasi.name}』\n
+                    {random_okasi.season}で買えるよ！"""
                 ),
             )
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-import json
+import random
 import os
 import re
 import sys
@@ -81,8 +81,29 @@ def message_text(event):
     event_text = event.message.text
 
     match event_text:
+
+        case "おかしのおすすめを教えて！":
+            mode_name = "おかしのオススメモード！"
+            print(mode_name)
+
+            line_bot_api.push_message(
+                event.source.user_id,
+                [TextSendMessage(text=f"{mode_name}")],
+            )
+            # TODO: 2022/06/25 シードは毎回リセットでいい？
+            random.seed()
+            random_okasi: SyunkadoOkasi = random.choice(syunkado_okasi_list)
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(
+                    text=f"{random_okasi.bot_sentence} \n『{random_okasi.name}』\n{random_okasi.season}で買えるよ！"
+                ),
+            )
+
         # debug用
         case "userinfo":
+            print("debug: userinfo")
             if isinstance(event.source, SourceUser):
                 profile = line_bot_api.get_profile(event.source.user_id)
                 line_bot_api.reply_message(
@@ -101,6 +122,11 @@ def message_text(event):
                 )
         case _:
             print("何も当たらなかった場合の最後")
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=f"返す言葉がありませんでした: {event_text}"),
+            )
 
 
 if __name__ == "__main__":
